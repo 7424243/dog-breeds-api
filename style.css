@@ -6,3 +6,11 @@
       text-transform: lowercase;
   }
   
+.results-img {
+    width: 100%;
+}
+
+.js-results-img {
+    width: 50%;
+   
+}

@@ -1,7 +1,7 @@
-function getDogImages(inputValue) {
+function getDogImage(inputValue) {
     console.log($('.breedOfDog').val());
     inputValue = $('.breedOfDog').val();
-    fetch('https://dog.ceo/api/breed/hound/images')
+    fetch('https://dog.ceo/api/breed/' + inputValue + '/images/random')
     .then(response => response.json())
     .then(responseJson => displayResults(responseJson))
     .catch(error => alert('Something went wrong. Please try again.'));
@@ -9,28 +9,24 @@ function getDogImages(inputValue) {
 
 
 function displayResults(responseJson) {
-    let arrayOfImg = responseJson.message;
-    $('.results-img').html(getMatch(arrayOfImg));
-    $('.results').removeAttr('hidden');
-
-}
-
-function getMatch(arrayOfImg) {
-    let match = [];
-    for (let i = 0; i < responseJson.message.length; i++) {
-        if (inputValue === ) {
-            match.push();
-        } else {
-            return alert('Breed not found. Please try again.');
-        }
+    let img = responseJson.message;
+    let status = responseJson.status;
+    console.log(status);
+    console.log(img);
+    if (status === "error") {
+        $('.results-img').html('<p>' + img + '. Please try again!</p>');
+        $('.results').removeAttr('hidden');
+        //alert(img)
+    } else {
+        $('.results-img').html('<img src="' + img + '" class="js-results-img">');
+        $('.results').removeAttr('hidden');
     }
-    return match[Math.floor(Math.random() * match.length)];
 }
 
 function handleSubmitButton() {
     $('form').submit(event => {
       event.preventDefault();
-      getDogImages();
+      getDogImage();
     });
   }
 
